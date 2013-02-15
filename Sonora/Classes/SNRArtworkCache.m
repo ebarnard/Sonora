@@ -82,7 +82,7 @@
 {
     NSManagedObjectID *objectID = [object objectID];
     NSImage *artwork = [_cachedArtwork objectForKey:objectID];
-    if (artwork) { return artwork; }
+    if (artwork && [artwork size].height == size.height && [artwork size].width == size.width) { return artwork; }
     if (handler) {
         NSMutableArray *blocks = [_handlerBlocks objectForKey:objectID] ?: [NSMutableArray array];
         [blocks addObject:[handler copy]];
@@ -98,14 +98,14 @@
         [_artworkQueue removeObject:objectID];
         [_handlerBlocks removeObjectForKey:objectID];
     }
-    return nil;
+    return artwork;
 }
 
 - (NSImage*)synchronousCachedArtworkForObject:(id)object artworkSize:(NSSize)size
 {
     NSManagedObjectID *objectID = [object objectID];
     NSImage *artwork = [_cachedArtwork objectForKey:objectID];
-    if (artwork) { return artwork; }
+    if (artwork && [artwork size].height == size.height && [artwork size].width == size.width) { return artwork; }
     NSData* artworkData = [_artworkStore artworkForObject:[object artwork]];
     NSImage *jpegImage = [[self class] scaledArtworkWithData:artworkData artworkSize:size];
     [self setCachedArtwork:jpegImage forObject:object];

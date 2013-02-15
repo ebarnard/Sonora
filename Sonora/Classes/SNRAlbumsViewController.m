@@ -217,7 +217,6 @@ typedef NSInteger SNRAlbumsViewControllerSortMode;
 {
 	NSWindow *window = self.gridView.window;
 	[window endEditingFor:window];
-	[_artworkCache removeAllCachedArtwork];
 	self.artists = artists;
     _showingMixes = NO;
 	NSPredicate *basePredicate = [NSPredicate predicateWithFormat:@"artist == $ARTIST"];
@@ -236,8 +235,7 @@ typedef NSInteger SNRAlbumsViewControllerSortMode;
 - (void)reloadDataWithMixes
 {
 	NSWindow *window = self.gridView.window;
-	[window endEditingFor:window];
-	[_artworkCache removeAllCachedArtwork];
+    [window endEditingFor:window];
     _showingMixes = YES;
     
     _arrayController.entityName = kEntityNameMix;
@@ -357,7 +355,6 @@ typedef NSInteger SNRAlbumsViewControllerSortMode;
 - (void)gridView:(OEGridView *)gridView magnifyEndedWithEvent:(NSEvent*)event
 {
     if (_cellWidthChanged) {
-        [_artworkCache removeAllCachedArtwork];
         [self.gridView reloadData];
     }
     _cellWidthChanged = NO;

@@ -227,7 +227,7 @@ typedef NSInteger SNRAlbumsViewControllerSortMode;
         [subpredicates addObject:substituted];
     }
     _arrayController.entityName = kEntityNameAlbum;
-    _arrayController.fetchSortDescriptors = [self albumSortDescriptors];
+    _arrayController.sortDescriptors = [self albumSortDescriptors];
     _arrayController.fetchPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:subpredicates];
     [_arrayController fetch:nil];
 }
@@ -239,7 +239,7 @@ typedef NSInteger SNRAlbumsViewControllerSortMode;
     _showingMixes = YES;
     
     _arrayController.entityName = kEntityNameMix;
-    _arrayController.fetchSortDescriptors = [self albumSortDescriptors];
+    _arrayController.sortDescriptors = [self albumSortDescriptors];
 	_arrayController.fetchPredicate = nil;
     [_arrayController fetch:nil];
 }
